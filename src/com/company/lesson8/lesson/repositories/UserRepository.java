@@ -24,11 +24,29 @@ public class UserRepository {
     }
 
     public User getUserByLogin(String login) throws NotFoundException {
-        for(User user : REPOSITORY) {
+        for (User user : REPOSITORY) {
             if (login.equals(user.getLogin())) {
                 return user;
             }
         }
         throw new NotFoundException("User with login:" + login + " not found");
+    }
+
+    public String loginExists(String login) throws NotFoundException {
+        for (User user : REPOSITORY) {
+            if (login.equals(user.getLogin())) {
+                return user.getLogin();
+            }
+        }
+        throw new NotFoundException("User with login: '" + login + "' not found");
+    }
+
+    public String passExists(String login) throws NotFoundException {
+        for (User user : REPOSITORY) {
+            if (login.equals(user.getPass())) {
+                return user.getPass();
+            }
+        }
+        throw new NotFoundException("incorrect pass for user '" + login + "'");
     }
 }
