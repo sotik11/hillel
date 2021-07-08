@@ -9,7 +9,5 @@ public class UserTest {
         StartMenu.run();
         LoginController loginTest = new LoginController();
         loginTest.logIn();
-
-
     }
 }

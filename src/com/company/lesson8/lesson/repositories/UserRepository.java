@@ -32,7 +32,8 @@ public class UserRepository {
         throw new NotFoundException("User with login:" + login + " not found");
     }
 
-    public String loginExists(String login) throws NotFoundException {
+    // FIXME: This method duplicates logic of getUserByLogin method. You shouldn't duplicate code. This method is unnecessary.
+    public String isLoginExists(String login) throws NotFoundException {
         for (User user : REPOSITORY) {
             if (login.equals(user.getLogin())) {
                 return user.getLogin();
@@ -41,7 +42,8 @@ public class UserRepository {
         throw new NotFoundException("User with login: '" + login + "' not found");
     }
 
-    public String passExists(String login) throws NotFoundException {
+    // FIXME: it seems weird, we shouldn't allow empty password for our users. So this method looks unnecessary.
+    public String isPassExists(String login) throws NotFoundException {
         for (User user : REPOSITORY) {
             if (login.equals(user.getPass())) {
                 return user.getPass();
