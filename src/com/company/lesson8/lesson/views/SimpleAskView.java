@@ -48,6 +48,7 @@ public class SimpleAskView {
 
 
 
+
         // FIXME: this solution isn't so good. If you need to add new yes value, you have to add one more if statement.
         //  your statements will grow and grow to unreadable mess.
         //  Your current version isn't readable now.
