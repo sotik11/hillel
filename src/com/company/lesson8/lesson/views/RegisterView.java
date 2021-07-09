@@ -24,7 +24,7 @@ public class RegisterView {
 
             try {
                 User user = controller.register(login, password, password2);
-                MainMenu.run(user);
+                MainMenuView.run(user);
                 return;
             } catch (RegistrationException e) {
                 System.out.println("Error: " + e.getMessage());
