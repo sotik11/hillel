@@ -8,10 +8,6 @@ import com.company.lesson8.lesson.repositories.UserRepository;
 public class LoginController {
 
     private final UserRepository repository = UserRepository.instance();
-//
-//    public User login(String login) {
-//        // if repo contains user with login
-//    }
 
     private boolean isLoginValid(String login) {
         try {
@@ -37,7 +33,6 @@ public class LoginController {
                     return repository.getUserByLogin(login);
                 } catch (NotFoundException exception) {
                     throw new RuntimeException(exception);
-//                    throw new NotFoundException("User with login:" + login + " not found");
                 }
             } else {
                 throw new LoginException(LoginException.MESSAGE_INVALID_PASS);

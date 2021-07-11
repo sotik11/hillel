@@ -6,8 +6,8 @@ import com.company.lesson8.lesson.views.StartMenu;
 
 public class UserTest {
     public static void main(String[] args) throws NotFoundException {
-        StartMenu.run();
-        LoginController loginTest = new LoginController();
-        loginTest.logIn();
+//        StartMenu.run();
+//        LoginController loginTest = new LoginController();
+//        loginTest.logIn();
     }
 }

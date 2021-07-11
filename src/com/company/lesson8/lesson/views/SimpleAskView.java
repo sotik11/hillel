@@ -41,7 +41,7 @@ public class SimpleAskView {
             }
         }
         throw new UncheckedIOException(
-                    new IOException("Cant read your answer more then 3 times, programm close"));
+                    new IOException("Cant read your answer more then 3 times, program close"));
     }
 }
 
