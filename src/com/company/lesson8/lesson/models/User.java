@@ -1,6 +1,6 @@
 package com.company.lesson8.lesson.models;
 
-public class User {
+public class User implements PreIndexed {
     protected String login;
     protected String pass;
 

@@ -7,7 +7,7 @@ import com.company.lesson8.lesson.exceptions.CreateException;
 import com.company.lesson8.lesson.exceptions.NotFoundException;
 
 public class RegistrationController {
-    private final UserRepository repository = new UserRepository();
+    private final UserRepository repository = UserRepository.instance();
 
     private boolean isPasswordValid(String password1, String password2) {
         return password1.equals(password2);
