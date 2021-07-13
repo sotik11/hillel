@@ -23,7 +23,7 @@ public class LoginView {
 
             try {
                 User user = loginController.login(login, password);
-                MainMenu.run(user);
+                MainMenuView.run(user);
                 return;
             } catch (LoginException e) {
                 System.out.println("Error: " + e.getMessage());
