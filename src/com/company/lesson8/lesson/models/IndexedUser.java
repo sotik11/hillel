@@ -13,4 +13,13 @@ public class IndexedUser extends User implements Indexed {
     public int getIndex() {
         return index;
     }
+
+    public int compareTo(IndexedUser other) {
+        return Integer.compare(index, other.index);
+    }
+
+    @Override
+    public String toString() {
+        return index + " " + super.toString();
+    }
 }
