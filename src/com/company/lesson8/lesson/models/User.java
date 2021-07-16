@@ -1,6 +1,8 @@
 package com.company.lesson8.lesson.models;
 
-public class User implements PreIndexed {
+import java.io.Serializable;
+
+public class User implements PreIndexed, Serializable, Comparable<User>{
     protected String login;
     protected String pass;
 
@@ -37,4 +39,16 @@ public class User implements PreIndexed {
 
         return isLoginSame && isPassSame;
     }
+
+    @Override
+    public int compareTo(User other) {
+        return Integer.compare(login.length(), other.login.length());
+//        return login.compareTo(other.login);
+    }
+
+    @Override
+    public String toString() {
+        return login + " " + pass;
+    }
+
 }

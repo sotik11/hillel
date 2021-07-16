@@ -2,14 +2,18 @@ package com.company.lesson8.lesson.views;
 
 import com.company.lesson8.lesson.contorllers.LoginController;
 import com.company.lesson8.lesson.exceptions.LoginException;
+import com.company.lesson8.lesson.exceptions.NotFoundException;
+import com.company.lesson8.lesson.models.IndexedUser;
 import com.company.lesson8.lesson.models.User;
 
+import java.io.IOException;
 import java.util.Scanner;
 
-public class LoginView implements View {
-    public static void run() {
+public class LoginView {
 
+    public static void run() {
         while (true) {
+            Scanner SCANNER = new Scanner(System.in);
             View view = new RegisterView();
             System.out.println("Login started");
             String login = view.inputAnswer("Login");
@@ -18,11 +22,10 @@ public class LoginView implements View {
             LoginController loginController = new LoginController();
 
             try {
-                User user = loginController.login(login, password);
+                IndexedUser user = loginController.login2(login, password);
                 MainMenuView.run(user);
                 return;
-            } catch (LoginException e) {
-                Scanner SCANNER = new Scanner(System.in);
+            } catch (IOException | ClassNotFoundException | LoginException | NotFoundException e) {
                 System.out.println("Error: " + e.getMessage());
                 System.out.println("Do you want to try again?");
                 System.out.println("1 - yes");
@@ -30,18 +33,18 @@ public class LoginView implements View {
                 System.out.println("3 - registration");
                 int answer = SCANNER.nextInt();
 
-                switch (answer) {
-                    case 1:
-                        System.out.println("Ok,then let's try again");
-                        LoginView.run();
-                        break;
-                    case 2:
-                        break;
-                    case 3:
-                        RegisterView.run();
-                        break;
-                    default:
-                        throw new IllegalArgumentException("Unsupported operation: " + answer);
+                if (answer == 1) {
+                    // do nothing
+                    System.out.println("Ok,then let's try again");
+                    LoginView.run();
+                    break;
+                } else if (answer == 2) {
+                    break;
+                } else if (answer == 3) {
+                    RegisterView.run();
+                    break;
+                } else {
+                    throw new IllegalArgumentException("Unsupported operation: " + answer);
                 }
             }
         }
