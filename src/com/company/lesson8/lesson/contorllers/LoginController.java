@@ -55,7 +55,7 @@ public class LoginController {
     }
 
     public IndexedUser login2(String login, String pass) throws IOException, ClassNotFoundException, NotFoundException, LoginException {
-        final FileInputStream fis1 = new FileInputStream("users.ser");
+        final FileInputStream fis1 = new FileInputStream("user-repository/users.ser");
         final ObjectInputStream ois1 = new ObjectInputStream(fis1);
 
         List<IndexedUser> users2 = (List<IndexedUser>) ois1.readObject();
