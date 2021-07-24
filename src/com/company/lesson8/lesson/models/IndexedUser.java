@@ -50,6 +50,7 @@ public class IndexedUser extends User implements Indexed {
     @Override
     public String toString() {
 //        return "Index " + index + " " + super.toString();
-        return String.format("%-22s%-22s%-10s", "login | " + login, "pass | " + pass, "index | " + index);
+//        return String.format("%-22s%-22s%-10s", "login | " + login, "pass | " + pass, "index | " + index);
+        return String.format("%-22s%-10s", "login | " + login, "index | " + index);
     }
 }

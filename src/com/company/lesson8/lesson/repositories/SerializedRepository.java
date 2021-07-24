@@ -86,6 +86,40 @@ public class SerializedRepository implements Repository {
         System.out.println();
     }
 
+    public void loginForDelete() throws IOException, ClassNotFoundException {
+        System.out.println("Enter user login for delete");
+        Scanner scan = new Scanner(System.in);
+        String login = scan.nextLine();
+        deleteByLogin(login);
+    }
+
+    public void deleteByLogin(String login) throws IOException, ClassNotFoundException {
+        final FileInputStream fis1 = new FileInputStream("user-repository/users.ser");
+        final ObjectInputStream ois1 = new ObjectInputStream(fis1);
+
+        List<IndexedUser> users2 = (List<IndexedUser>) ois1.readObject();
+
+        Iterator<IndexedUser> it = users2.iterator();
+        while (it.hasNext()) {
+            if (it.next().getLogin().equals(login))
+                it.remove();
+        }
+
+        fis1.close();
+        ois1.close();
+
+        final FileOutputStream fos = new FileOutputStream("user-repository/users.ser");
+        final ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+        oos.writeObject(users2);
+        oos.flush();
+        fos.close();
+        oos.close();
+
+        System.out.println("User with login " + login + " deleted");
+        System.out.println();
+    }
+
     public void indexForLoad() throws IOException, ClassNotFoundException {
         System.out.println("Enter user index");
         Scanner scan = new Scanner(System.in);
@@ -111,7 +145,7 @@ public class SerializedRepository implements Repository {
 
     public void reset() throws IOException {
         List<IndexedUser> users2 = new ArrayList<>();
-        IndexedUser resetUser = new IndexedUser("reset", "reset", 1);
+        IndexedUser resetUser = new IndexedUser("admin", "admin", 1);
         users2.add(resetUser);
         final FileOutputStream fos = new FileOutputStream("user-repository/users.ser");
         final ObjectOutputStream oos = new ObjectOutputStream(fos);
