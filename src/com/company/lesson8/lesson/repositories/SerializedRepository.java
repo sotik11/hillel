@@ -174,7 +174,8 @@ public class SerializedRepository implements Repository {
             if (userX.getIndex() == index) {
                 return userX;
             }
-        }throw new NotFoundException("Index not found");
+        }
+        throw new NotFoundException("Index not found");
     }
 }
 
