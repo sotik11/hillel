@@ -47,8 +47,10 @@ public class SerializedRepository implements Repository {
         for (int i = 0; i < users2.size(); i++) {
             System.out.println(users2.get(i));
         }
+
         System.out.println();
     }
+
     public void indexForDelete() throws IOException, ClassNotFoundException {
         System.out.println("Enter user index");
         Scanner scan = new Scanner(System.in);
@@ -117,6 +119,7 @@ public class SerializedRepository implements Repository {
         fos.close();
         oos.close();
     }
+
     @Override
     public void delete(Indexed obj) {
 
