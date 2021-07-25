@@ -30,7 +30,7 @@ public class UserRepository {
     }
 
     public User getUserByLogin(String login) throws NotFoundException, IOException, ClassNotFoundException {
-        final FileInputStream fis1 = new FileInputStream("users.ser");
+        final FileInputStream fis1 = new FileInputStream("user-repository/users.ser");
         final ObjectInputStream ois1 = new ObjectInputStream(fis1);
 
         List<User> users2 = (List<User>) ois1.readObject();

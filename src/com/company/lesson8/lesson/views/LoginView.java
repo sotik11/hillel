@@ -23,6 +23,11 @@ public class LoginView {
 
             try {
                 IndexedUser user = loginController.login2(login, password);
+                if (login.equals("admin") && password.equals("admin")){
+                    AdminMenuView.run();
+                    return;
+                }
+                else
                 MainMenuView.run(user);
                 return;
             } catch (IOException | ClassNotFoundException | LoginException | NotFoundException e) {

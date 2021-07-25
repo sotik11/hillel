@@ -12,12 +12,8 @@ public class MainMenuView {
         System.out.println("Hello: " + user.getLogin());
 
         while (true) {
-            System.out.println("1 - Show all users list");
-            System.out.println("2 - Delete User by index");
-            System.out.println("3 - Show User by index");
-            System.out.println("4 - Reset repository (delete all users)");
-            System.out.println("5 - Exit");
-            System.out.println("6 - Log out");
+            System.out.println("1 - Exit");
+            System.out.println("2 - Log out");
 
             SerializedRepository s = new SerializedRepository();
             Scanner scanner = new Scanner(System.in);
@@ -30,26 +26,13 @@ public class MainMenuView {
             int answer = scanner.nextInt();
             switch (answer) {
                 case 1:
-                    s.loadAllUsers();
-                    break;
-                case 2:
-                    s.indexForDelete();
-                    break;
-                case 3:
-                    s.indexForLoad();
-                    break;
-                case 4:
-                    s.reset();
-                    break;
-                case 5:
                     return;
-                case 6:
+                case 2:
                     StartMenu.run();
                     return;
                 default:
                     System.out.println("Unknown command: " + answer);
             }
-
         }
     }
 }

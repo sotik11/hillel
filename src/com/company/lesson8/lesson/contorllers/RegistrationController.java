@@ -2,10 +2,8 @@ package com.company.lesson8.lesson.contorllers;
 
 import com.company.lesson8.lesson.exceptions.RegistrationException;
 import com.company.lesson8.lesson.models.IndexedUser;
-import com.company.lesson8.lesson.models.User;
 import com.company.lesson8.lesson.repositories.SerializedRepository;
 import com.company.lesson8.lesson.repositories.UserRepository;
-import com.company.lesson8.lesson.exceptions.CreateException;
 import com.company.lesson8.lesson.exceptions.NotFoundException;
 
 import java.io.FileInputStream;
@@ -22,7 +20,7 @@ public class RegistrationController {
     }
 
     private boolean isLoginValid(String login) throws IOException, ClassNotFoundException {
-        final FileInputStream fis1 = new FileInputStream("users.ser");
+        final FileInputStream fis1 = new FileInputStream("user-repository/users.ser");
         final ObjectInputStream ois1 = new ObjectInputStream(fis1);
 
         List<IndexedUser> users2 = (List<IndexedUser>) ois1.readObject();

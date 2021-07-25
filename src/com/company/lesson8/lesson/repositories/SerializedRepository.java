@@ -1,5 +1,6 @@
 package com.company.lesson8.lesson.repositories;
 
+import com.company.lesson8.lesson.exceptions.NotFoundException;
 import com.company.lesson8.lesson.models.Indexed;
 import com.company.lesson8.lesson.models.IndexedUser;
 import com.company.lesson8.lesson.models.PreIndexed;
@@ -15,7 +16,7 @@ public class SerializedRepository implements Repository {
 
     @Override
     public void save(PreIndexed obj) throws IOException, ClassNotFoundException {
-        final FileInputStream fis1 = new FileInputStream("users.ser");
+        final FileInputStream fis1 = new FileInputStream("user-repository/users.ser");
         final ObjectInputStream ois1 = new ObjectInputStream(fis1);
 
         List<User> users2 = (List<User>) ois1.readObject();
@@ -25,15 +26,16 @@ public class SerializedRepository implements Repository {
 
         users2.add((User) obj);
 
-        final FileOutputStream fos = new FileOutputStream("users.ser");
+        final FileOutputStream fos = new FileOutputStream("user-repository/users.ser");
         final ObjectOutputStream oos = new ObjectOutputStream(fos);
 
         oos.writeObject(users2);
         fos.close();
         oos.close();
     }
+
     public void loadAllUsers() throws IOException, ClassNotFoundException {
-        final FileInputStream fis1 = new FileInputStream("users.ser");
+        final FileInputStream fis1 = new FileInputStream("user-repository/users.ser");
         final ObjectInputStream ois1 = new ObjectInputStream(fis1);
 
         List<IndexedUser> users2 = (List<IndexedUser>) ois1.readObject();
@@ -59,7 +61,7 @@ public class SerializedRepository implements Repository {
     }
 
     public void deleteByIndex(int index) throws IOException, ClassNotFoundException {
-        final FileInputStream fis1 = new FileInputStream("users.ser");
+        final FileInputStream fis1 = new FileInputStream("user-repository/users.ser");
         final ObjectInputStream ois1 = new ObjectInputStream(fis1);
 
         List<IndexedUser> users2 = (List<IndexedUser>) ois1.readObject();
@@ -73,7 +75,7 @@ public class SerializedRepository implements Repository {
         fis1.close();
         ois1.close();
 
-        final FileOutputStream fos = new FileOutputStream("users.ser");
+        final FileOutputStream fos = new FileOutputStream("user-repository/users.ser");
         final ObjectOutputStream oos = new ObjectOutputStream(fos);
 
         oos.writeObject(users2);
@@ -85,6 +87,40 @@ public class SerializedRepository implements Repository {
         System.out.println();
     }
 
+    public void loginForDelete() throws IOException, ClassNotFoundException {
+        System.out.println("Enter user login for delete");
+        Scanner scan = new Scanner(System.in);
+        String login = scan.nextLine();
+        deleteByLogin(login);
+    }
+
+    public void deleteByLogin(String login) throws IOException, ClassNotFoundException {
+        final FileInputStream fis1 = new FileInputStream("user-repository/users.ser");
+        final ObjectInputStream ois1 = new ObjectInputStream(fis1);
+
+        List<IndexedUser> users2 = (List<IndexedUser>) ois1.readObject();
+
+        Iterator<IndexedUser> it = users2.iterator();
+        while (it.hasNext()) {
+            if (it.next().getLogin().equals(login))
+                it.remove();
+        }
+
+        fis1.close();
+        ois1.close();
+
+        final FileOutputStream fos = new FileOutputStream("user-repository/users.ser");
+        final ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+        oos.writeObject(users2);
+        oos.flush();
+        fos.close();
+        oos.close();
+
+        System.out.println("User with login " + login + " deleted");
+        System.out.println();
+    }
+
     public void indexForLoad() throws IOException, ClassNotFoundException {
         System.out.println("Enter user index");
         Scanner scan = new Scanner(System.in);
@@ -93,7 +129,7 @@ public class SerializedRepository implements Repository {
     }
 
     public void loadByIndex(int index) throws IOException, ClassNotFoundException {
-        final FileInputStream fis1 = new FileInputStream("users.ser");
+        final FileInputStream fis1 = new FileInputStream("user-repository/users.ser");
         final ObjectInputStream ois1 = new ObjectInputStream(fis1);
 
         List<IndexedUser> users2 = (List<IndexedUser>) ois1.readObject();
@@ -110,9 +146,9 @@ public class SerializedRepository implements Repository {
 
     public void reset() throws IOException {
         List<IndexedUser> users2 = new ArrayList<>();
-        IndexedUser resetUser = new IndexedUser("reset", "reset", 1);
+        IndexedUser resetUser = new IndexedUser("admin", "admin", 1);
         users2.add(resetUser);
-        final FileOutputStream fos = new FileOutputStream("users.ser");
+        final FileOutputStream fos = new FileOutputStream("user-repository/users.ser");
         final ObjectOutputStream oos = new ObjectOutputStream(fos);
 
         oos.writeObject(users2);
@@ -121,12 +157,27 @@ public class SerializedRepository implements Repository {
     }
 
     @Override
-    public void delete(Indexed obj) {
-
+    public void delete(Indexed obj) throws IOException, ClassNotFoundException {
+        deleteByIndex(obj.getIndex());
     }
 
     @Override
-    public Indexed load(int index) {
-        return null;
+    public Indexed load(int index) throws IOException, NotFoundException, ClassNotFoundException {
+        final FileInputStream fis1 = new FileInputStream("user-repository/users.ser");
+        final ObjectInputStream ois1 = new ObjectInputStream(fis1);
+
+        List<IndexedUser> users2 = (List<IndexedUser>) ois1.readObject();
+        fis1.close();
+        ois1.close();
+
+        for (IndexedUser userX : users2) {
+            if (userX.getIndex() == index) {
+                return userX;
+            }
+        }throw new NotFoundException("Index not found");
     }
 }
+
+
+
+

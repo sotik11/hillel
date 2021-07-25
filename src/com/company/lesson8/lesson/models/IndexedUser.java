@@ -26,7 +26,7 @@ public class IndexedUser extends User implements Indexed {
         }
 
     public static int getLastIndexX() throws IOException, ClassNotFoundException {
-        final FileInputStream fis1 = new FileInputStream("users.ser");
+        final FileInputStream fis1 = new FileInputStream("user-repository/users.ser");
         final ObjectInputStream ois1 = new ObjectInputStream(fis1);
 
         List<IndexedUser> users1 = (List<IndexedUser>) ois1.readObject();
@@ -50,6 +50,7 @@ public class IndexedUser extends User implements Indexed {
     @Override
     public String toString() {
 //        return "Index " + index + " " + super.toString();
-        return String.format("%-22s%-22s%-10s", "login | " + login, "pass | " + pass, "index | " + index);
+//        return String.format("%-22s%-22s%-10s", "login | " + login, "pass | " + pass, "index | " + index);
+        return String.format("%-22s%-10s", "login | " + login, "index | " + index);
     }
 }
